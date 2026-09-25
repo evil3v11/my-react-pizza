@@ -1,30 +1,23 @@
+import { Route, Routes } from "react-router";
+
 import "./scss/app.scss";
 
-import { MOCK_PIZZAS } from "./lib/constants/pizzas";
-
 import Header from "./components/Header";
-import PizzaCategories from "./components/PizzaCategories";
-import Sort from "./components/Sort";
-import PizzaCard from "./components/PizzaCard";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import Cart from "./pages/Cart";
 
 const App = () => {
   return (
     <div className="wrapper">
       <Header />
-      <div className="content">
-        <div className="container">
-          <div className="content__top">
-            <PizzaCategories />
-            <Sort />
-          </div>
-          <h2 className="content__title">Все пиццы</h2>
-          <div className="content__items">
-            {MOCK_PIZZAS.map((pizza) => (
-              <PizzaCard key={pizza.id} {...pizza} />
-            ))}
-          </div>
-        </div>
-      </div>
+      <main className="content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
     </div>
   );
 };

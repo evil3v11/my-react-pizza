@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { PIZZA_CATEGORIES } from "../lib/constants/pizza-categories";
+import { PIZZA_CATEGORIES } from "../lib/constants/pizzas";
 
 const PizzaCategories = () => {
   const [activeIdx, setActiveIdx] = useState(0);

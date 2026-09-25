@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import { PIZZA_TYPES } from "../lib/constants";
-import type { Pizza } from "../types";
+import { PIZZA_TYPES } from "../../lib/constants";
+import type { Pizza } from "../../types";
 
-import PlusIcon from "./svg/PlusIcon";
+import PlusIcon from "../svg/PlusIcon";
 
 const PizzaCard = ({
   title,
