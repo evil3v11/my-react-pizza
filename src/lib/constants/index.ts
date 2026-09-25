@@ -1,2 +1,2 @@
 export * from "./pizzas";
-export * from "./pizza-categories";
+export * from "./apiUrl";

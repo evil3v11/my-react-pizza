@@ -1,8 +1,17 @@
-@import '../variables';
+@import "../variables";
 
 .header {
   border-bottom: 1px solid $gray-line;
   padding: 40px 0;
+
+  @media (max-width: 768px) {
+    &__cart {
+      position: fixed;
+      bottom: 2%;
+      right: 8px;
+      z-index: 100;
+    }
+  }
 
   .container {
     display: flex;
