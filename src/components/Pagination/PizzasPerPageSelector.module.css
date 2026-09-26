@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.count {
+  font-weight: 700;
+}
+
+.list {
+  border-radius: 5px;
+  border: 1px solid #fe5f1e;
+  position: absolute;
+  border-radius: 15px;
+  right: -20px;
+  top: 85px;
+  background: white;
+}
+
+.option {
+  padding: 8px;
+  text-align: center;
+  min-width: 50px;
+  transition: all 0.3s ease-in-out;
+  border-radius: inherit;
+  width: full;
+  
+  &:hover {
+    background-color: whitesmoke;
+    color: #fe5f1e;
+    cursor: pointer;
+  }
+}
+
+.limit {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #fe5f1e;
+}

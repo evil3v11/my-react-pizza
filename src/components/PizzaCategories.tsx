@@ -1,20 +1,28 @@
-import { useState } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
 import { PIZZA_CATEGORIES } from "../lib/constants/pizzas";
+import { setCategoryId } from "../store/slices/filterSlice";
+import type { RootState } from "../store/store";
+import { setCurrentPage } from "../store/slices/paginationSlice";
 
 const PizzaCategories = () => {
-  const [activeIdx, setActiveIdx] = useState(0);
+  const { categoryId } = useSelector((state: RootState) => state.filter);
+  const dispatch = useDispatch();
+
+  const handleCategoryChange = (id: number) => {
+    dispatch(setCategoryId(id));
+    dispatch(setCurrentPage(1));
+  };
 
   return (
     <div className="categories">
       <ul>
-        {PIZZA_CATEGORIES.map((category, i) => (
+        {PIZZA_CATEGORIES.map((categoryName, i) => (
           <li
-            key={category}
-            onClick={() => setActiveIdx(i)}
-            className={activeIdx === i ? "active" : ""}
+            key={categoryName}
+            onClick={() => handleCategoryChange(i)}
+            className={categoryId === i ? "active" : ""}
           >
-            {category}
+            {categoryName}
           </li>
         ))}
       </ul>
