@@ -86,6 +86,11 @@ body {
       flex-direction: column;
     }
   }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 .container {
