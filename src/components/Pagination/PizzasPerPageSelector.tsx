@@ -1,16 +1,19 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router";
 import { useClickOutside } from "../../hooks";
-import { setLimit } from "../../store/slices/paginationSlice";
-import { PIZZAS_PER_PAGE_OPTIONS } from "../../lib/constants";
-import type { RootState } from "../../store/store";
+import { PIZZAS_PER_PAGE, PIZZAS_PER_PAGE_OPTIONS } from "../../lib/constants";
 
 import styles from "./PizzasPerPageSelector.module.css";
 
 const PizzasPerPageSelector = () => {
   const { ref, isOpen, setIsOpen } = useClickOutside<HTMLSpanElement>();
 
-  const { limit } = useSelector((state: RootState) => state.pagination);
-  const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const limit = searchParams.get("limit") || PIZZAS_PER_PAGE;
+
+  const handleChangeLimit = (limit: number) => {
+    searchParams.set("limit", String(limit));
+    setSearchParams(searchParams);
+  };
 
   return (
     <>
@@ -30,7 +33,7 @@ const PizzasPerPageSelector = () => {
                 key={i}
                 value={option}
                 className={styles.option}
-                onClick={() => dispatch(setLimit(option))}
+                onClick={() => handleChangeLimit(option)}
               >
                 {option}
               </li>

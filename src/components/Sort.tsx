@@ -1,24 +1,21 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router";
 import { useClickOutside } from "../hooks";
-import { setSortBy } from "../store/slices/filterSlice";
-import type { RootState } from "../store/store";
 import { PIZZA_SORT_BY_OPTIONS } from "../lib/constants";
 
 import ArrowIcon from "./svg/ArrowIcon";
 import type { SortOption } from "../types";
-import { setCurrentPage } from "../store/slices/paginationSlice";
 
 const Sort = () => {
-  const { ref, isOpen, setIsOpen } = useClickOutside<HTMLDivElement>();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortBy = searchParams.get("sortBy");
 
-  const { sortBy } = useSelector((state: RootState) => state.filter);
-  const dispatch = useDispatch();
+  const { ref, isOpen, setIsOpen } = useClickOutside<HTMLDivElement>();
 
   const sortIdx = PIZZA_SORT_BY_OPTIONS.findIndex((s) => s.value === sortBy);
 
   const handleSortChange = (sortBy: SortOption) => {
-    dispatch(setSortBy(sortBy));
-    dispatch(setCurrentPage(1));
+    searchParams.set("sortBy", sortBy);
+    setSearchParams(searchParams);
   };
 
   return (
