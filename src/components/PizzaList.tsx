@@ -1,31 +1,44 @@
-import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router";
 import { useGetPizzasQuery } from "../store/api/pizzaApi";
+
+import { PIZZAS_PER_PAGE } from "../lib/constants";
+import type { OrderDirection } from "../types";
 
 import PizzaCard from "./PizzaCard/PizzaCard";
 import PizzaCardSkeleton from "./PizzaCard/PizzaCardSkeleton";
 import PizzaListError from "./PizzaListError";
-import type { RootState } from "../store/store";
+import PizzaListEmpty from "./PizzaListEmpty";
+import Pagination from "../components/Pagination/Pagination";
 
 const PizzaList = () => {
-  const filter = useSelector((state: RootState) => state.filter);
-  const search = useSelector((state: RootState) => state.search.value);
-  const pagination = useSelector((state: RootState) => state.pagination);
+  const [searchParams] = useSearchParams();
+
+  const category = Number(searchParams.get("category")) || 0;
+  const page = Number(searchParams.get("page")) || 1;
+  const sortBy = searchParams.get("sortBy") || "rating";
+  const order = searchParams.get("order") as OrderDirection || "desc" ;
+  const search = searchParams.get("search") || "";
+  const limit = Number(searchParams.get("limit")) || PIZZAS_PER_PAGE;
 
   const {
     data: pizzas,
     isFetching,
-    isError,
+    error,
     refetch,
-  } = useGetPizzasQuery({ ...filter, search, ...pagination });
+  } = useGetPizzasQuery({ category, limit, order, page, search, sortBy });
 
-  if (isError) return <PizzaListError onRefetch={refetch} />;
+  if (!isFetching && (!pizzas || !pizzas.length)) return <PizzaListEmpty />;
+  if (error) return <PizzaListError onRefetch={refetch} />;
 
   return (
-    <div className="content__items">
-      {isFetching || !pizzas
-        ? [...new Array(8)].map((_, i) => <PizzaCardSkeleton key={i} />)
-        : pizzas.map((pizza) => <PizzaCard key={pizza.id} {...pizza} />)}
-    </div>
+    <>
+      <div className="content__items">
+        {isFetching
+          ? [...new Array(8)].map((_, i) => <PizzaCardSkeleton key={i} />)
+          : pizzas?.map((pizza) => <PizzaCard key={pizza.id} {...pizza} />)}
+      </div>
+      <Pagination />
+    </>
   );
 };
 

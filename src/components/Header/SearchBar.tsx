@@ -1,23 +1,22 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useDebounce } from "../../hooks/useDebounce";
-import { setSearch, clearSearch } from "../../store/slices/searchSlice";
-import { setCurrentPage } from "../../store/slices/paginationSlice";
-
-import type { RootState } from "../../store/store";
+import { useRef, useState } from "react";
+import { useSearchParams } from "react-router";
+import { useDebounce } from "../../hooks/";
 
 import styles from "./SearchBar.module.css";
 import { Search, X } from "lucide-react";
 
 const SearchBar = () => {
-  const search = useSelector((state: RootState) => state.search.value);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const search = searchParams.get("search") || "";
   const [localSearch, setLocalSearch] = useState(search);
-  const dispatch = useDispatch();
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const debouncedSearch = useDebounce((search) => {
-    dispatch(setSearch(search));
-    dispatch(setCurrentPage(1));
-  }, 400);
+    searchParams.set("search", String(search));
+    setSearchParams(searchParams);
+    setLocalSearch(String(search));
+  }, 300);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLocalSearch(e.target.value);
@@ -26,13 +25,16 @@ const SearchBar = () => {
 
   const handleClearSearch = () => {
     setLocalSearch("");
-    dispatch(clearSearch());
+    searchParams.delete("search");
+    setSearchParams(searchParams);
+    if (inputRef.current) inputRef.current.focus();
   };
 
   return (
     <div className={styles.container}>
       <Search width={16} height={16} className={styles.icon} />
       <input
+        ref={inputRef}
         value={localSearch}
         onChange={handleSearchChange}
         className={styles.input}

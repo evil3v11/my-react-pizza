@@ -1,7 +1,6 @@
 import PizzaCategories from "../components/PizzaCategories";
 import Sort from "../components/Sort";
 import PizzaList from "../components/PizzaList";
-import Pagination from "../components/Pagination/Pagination";
 import PizzasPerPageSelector from "../components/Pagination/PizzasPerPageSelector";
 
 const Home = () => {
@@ -16,7 +15,6 @@ const Home = () => {
         <PizzasPerPageSelector />
       </div>
       <PizzaList />
-      <Pagination />
     </div>
   );
 };

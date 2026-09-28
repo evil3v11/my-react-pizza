@@ -1,16 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router";
 import { PIZZA_CATEGORIES } from "../lib/constants/pizzas";
-import { setCategoryId } from "../store/slices/filterSlice";
-import type { RootState } from "../store/store";
-import { setCurrentPage } from "../store/slices/paginationSlice";
 
 const PizzaCategories = () => {
-  const { categoryId } = useSelector((state: RootState) => state.filter);
-  const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const categoryId = Number(searchParams.get("category")) || 0;
 
   const handleCategoryChange = (id: number) => {
-    dispatch(setCategoryId(id));
-    dispatch(setCurrentPage(1));
+    searchParams.set("category", String(id));
+    setSearchParams(searchParams);
   };
 
   return (

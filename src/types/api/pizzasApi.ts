@@ -2,7 +2,7 @@ import type { OrderDirection } from "../filters";
 
 export type GetPizzasQueryOptions = {
   sortBy: string;
-  categoryId: number;
+  category: number;
   order: OrderDirection;
   search: string;
   page: number;

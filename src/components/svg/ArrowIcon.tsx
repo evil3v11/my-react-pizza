@@ -1,17 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setOrder } from "../../store/slices/filterSlice";
-import { setCurrentPage } from "../../store/slices/paginationSlice";
-
-import type { RootState } from "../../store/store";
+import { useSearchParams } from "react-router";
 import type { OrderDirection } from "../../types";
 
 const ArrowIcon = () => {
-  const { order } = useSelector((state: RootState) => state.filter);
-  const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const order = (searchParams.get("order") as OrderDirection) || "desc";
 
   const handleOrderChange = (order: OrderDirection) => {
-    dispatch(setOrder(order === "desc" ? "asc" : "desc"));
-    dispatch(setCurrentPage(1));
+    searchParams.set("order", order === "desc" ? "asc" : "desc");
+    setSearchParams(searchParams);
   };
 
   return (
