@@ -1,6 +1,6 @@
 import { FaceSlightlyFrowning } from "lucide-react";
 
-import styles from "./NotFoundContent.module.css";
+import styles from "./NotFoundContent.module.scss";
 
 const NotFoundContent = () => {
   return (

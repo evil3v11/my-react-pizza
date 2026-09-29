@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router";
 import { buildVisiblePages } from "../../lib/helpers";
 import { TOTAL_PAGES } from "../../lib/constants";
 
-import styles from "./Pagination.module.css";
+import styles from "./Pagination.module.scss";
 import {
   ArrowBigLeftDash,
   ArrowLeft,

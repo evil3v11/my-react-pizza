@@ -9,7 +9,7 @@ export const PIZZA_CATEGORIES = [
   "Закрытые",
 ] as const;
 
-export const PIZZA_TYPES = ["тонкое", "традиционное"] as const;
+export const PIZZA_TYPES = ["тонкое", "традиционное"];
 export const PIZZA_SORT_BY_OPTIONS: SortOptions[] = [
   { name: "популярности", value: "rating" },
   { name: "цене", value: "price" },

@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useSearchParams } from "react-router";
 import { useDebounce } from "../../hooks/";
 
-import styles from "./SearchBar.module.css";
+import styles from "./SearchBar.module.scss";
 import { Search, X } from "lucide-react";
 
 const SearchBar = () => {
