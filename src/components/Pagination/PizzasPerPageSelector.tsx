@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router";
 import { useClickOutside } from "../../hooks";
 import { PIZZAS_PER_PAGE, PIZZAS_PER_PAGE_OPTIONS } from "../../lib/constants";
 
-import styles from "./PizzasPerPageSelector.module.css";
+import styles from "./PizzasPerPageSelector.module.scss";
 
 const PizzasPerPageSelector = () => {
   const { ref, isOpen, setIsOpen } = useClickOutside<HTMLSpanElement>();
