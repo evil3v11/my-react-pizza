@@ -26,25 +26,31 @@
 
     ul {
       display: flex;
+      position: relative;
       flex: 1;
-
       &:first-of-type {
         margin-bottom: 6px;
       }
 
-      li {
-        padding: 8px;
-        flex: 1;
+      div {
+        position: absolute;
         cursor: pointer;
+        z-index: 1;
+        background: white;
+        border-radius: 5px;
+        height: 100%;
+        flex: 1;
+        transition: transform 0.1s ease-in-out;
+      }
+
+      li {
+        flex: 1;
         font-weight: 600;
         font-size: 14px;
         @include noselect();
-        &.active {
-          background: #ffffff;
-          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
-          border-radius: 5px;
-          cursor: auto;
-        }
+        z-index: 2;
+        cursor: pointer;
+        padding: 8px;
       }
     }
   }

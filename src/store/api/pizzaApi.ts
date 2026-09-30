@@ -19,7 +19,10 @@ export const pizzaApi = createApi({
         },
       }),
     }),
+    getPizzaById: builder.query<Pizza, string>({
+      query: (pizzaId) => `/pizzas/${pizzaId}`,
+    }),
   }),
 });
 
-export const { useGetPizzasQuery } = pizzaApi;
+export const { useGetPizzasQuery, useGetPizzaByIdQuery } = pizzaApi;

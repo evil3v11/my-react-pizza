@@ -23,6 +23,6 @@ export const PIZZA_SORT_BY_OPTIONS: SortOptions[] = [
 **/
 export const TOTAL_PAGES = 3;
 
-export const PIZZAS_PER_PAGE = 10;
+export const PIZZAS_PER_PAGE = 4;
 
-export const PIZZAS_PER_PAGE_OPTIONS = [2, 5, 10];
+export const PIZZAS_PER_PAGE_OPTIONS = [4, 8, 12];

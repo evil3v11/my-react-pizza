@@ -1,7 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { clearCart } from "../store/slices/cartSlice";
-
-import type { RootState } from "../store/store";
+import { cartSelector, clearCart } from "../store/slices/cartSlice";
 
 import { Trash } from "lucide-react";
 import { Link } from "react-router";
@@ -10,7 +8,7 @@ import EmptyCartState from "../components/Cart/EmptyCartState";
 import CartItem from "../components/Cart/CartItem";
 
 const Cart = () => {
-  const { items, totalCount, totalPrice } = useSelector((state: RootState) => state.cart);
+  const { items, totalCount, totalPrice } = useSelector(cartSelector);
   const dispatch = useDispatch();
 
   if (!items.length) return <EmptyCartState />;

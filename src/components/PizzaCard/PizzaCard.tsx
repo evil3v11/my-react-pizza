@@ -1,14 +1,18 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { usePizzaOptions } from "../../hooks/usePizzaOptions";
 import {
   addOrIncrementItem,
   calculateTotal,
+  cartSelector,
 } from "../../store/slices/cartSlice";
 
 import { PIZZA_TYPES } from "../../lib/constants";
-import type { RootState } from "../../store/store";
 import type { Pizza as PizzaCardProps } from "../../types";
+
+import { Link } from "react-router";
 import PlusIcon from "../svg/PlusIcon";
+import PizzaCardSelectors from "../PizzaOptionsSelector";
 
 const PizzaCard = ({
   id,
@@ -18,10 +22,10 @@ const PizzaCard = ({
   sizes,
   imageUrl,
 }: PizzaCardProps) => {
-  const [activeTypeIdx, setActiveTypeIdx] = useState(0);
-  const [activeSize, setActiveSize] = useState(sizes[0]);
+  const { activeSizeIdx, activeType, handleSizeIdxChange, handleTypeChange } =
+    usePizzaOptions();
 
-  const { items } = useSelector((state: RootState) => state.cart);
+  const { items } = useSelector(cartSelector);
   const dispatch = useDispatch();
 
   const handleAddItemToCart = () => {
@@ -31,8 +35,8 @@ const PizzaCard = ({
         title,
         price,
         imageUrl,
-        size: activeSize,
-        type: PIZZA_TYPES[activeTypeIdx],
+        size: sizes[activeSizeIdx],
+        type: PIZZA_TYPES[activeType],
       }),
     );
     dispatch(calculateTotal());
@@ -49,32 +53,19 @@ const PizzaCard = ({
 
   return (
     <div className="pizza-card">
-      <img className="pizza-card__image" src={imageUrl} alt={title} />
-      <h4 className="pizza-card__title">{title}</h4>
-      <div className="pizza-card__selector">
-        <ul>
-          {types.map((typeIdx) => (
-            <li
-              key={typeIdx}
-              onClick={() => setActiveTypeIdx(typeIdx)}
-              className={activeTypeIdx === typeIdx ? "active" : ""}
-            >
-              {PIZZA_TYPES[typeIdx]}
-            </li>
-          ))}
-        </ul>
-        <ul>
-          {sizes.map((size) => (
-            <li
-              key={size}
-              onClick={() => setActiveSize(size)}
-              className={activeSize === size ? "active" : ""}
-            >
-              {size} см
-            </li>
-          ))}
-        </ul>
-      </div>
+      <Link to={`/pizza/${id}`}>
+        <img className="pizza-card__image" src={imageUrl} alt={title} />
+        <h4 className="pizza-card__title">{title}</h4>
+      </Link>
+      <div />
+      <PizzaCardSelectors
+        types={types}
+        sizes={sizes}
+        activeType={activeType}
+        activeSizeIdx={activeSizeIdx}
+        onTypeChange={handleTypeChange}
+        onSizeIdxChange={handleSizeIdxChange}
+      />
       <div className="pizza-card__bottom">
         <div className="pizza-card__price">от {price} ₽</div>
         <button
