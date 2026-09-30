@@ -1,9 +1,9 @@
 import { useSearchParams } from "react-router";
-import { useClickOutside } from "../hooks";
-import { PIZZA_SORT_BY_OPTIONS } from "../lib/constants";
+import { useClickOutside } from "../../hooks";
+import { PIZZA_SORT_BY_OPTIONS } from "../../lib/constants";
 
-import ArrowIcon from "./svg/ArrowIcon";
-import type { SortOption } from "../types";
+import ArrowIcon from "../svg/ArrowIcon";
+import type { SortOption } from "../../types";
 
 const Sort = () => {
   const [searchParams, setSearchParams] = useSearchParams();

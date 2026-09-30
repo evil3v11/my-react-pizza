@@ -11,6 +11,7 @@ const PizzasPerPageSelector = () => {
   const limit = searchParams.get("limit") || PIZZAS_PER_PAGE;
 
   const handleChangeLimit = (limit: number) => {
+    searchParams.set("page", "1");
     searchParams.set("limit", String(limit));
     setSearchParams(searchParams);
   };

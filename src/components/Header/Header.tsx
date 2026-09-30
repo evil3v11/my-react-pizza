@@ -1,13 +1,15 @@
 import { useSelector } from "react-redux";
-import type { RootState } from "../../store/store";
+import { cartSelector } from "../../store/slices/cartSlice";
 
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import SearchBar from "./SearchBar";
 import CartIcon from "../svg/CartIcon";
 import logo from "../../assets/img/pizza-logo.svg";
 
 const Header = () => {
-  const { totalPrice, totalCount } = useSelector((state: RootState) => state.cart);
+  const { totalPrice, totalCount } = useSelector(cartSelector);
+  const pathname = useLocation().pathname;
+  const isOnCartPage = pathname === "/cart";
 
   return (
     <header className="header">
@@ -21,12 +23,14 @@ const Header = () => {
         </Link>
         <SearchBar />
         <div className="header__cart">
-          <Link to="/cart" className="button button--cart">
-            <span>{totalPrice} ₽</span>
-            <div className="button__delimiter" />
-            <CartIcon />
-            <span>{totalCount}</span>
-          </Link>
+          {!isOnCartPage && (
+            <Link to="/cart" className="button button--cart">
+              <span>{totalPrice} ₽</span>
+              <div className="button__delimiter" />
+              <CartIcon />
+              <span>{totalCount}</span>
+            </Link>
+          )}
         </div>
       </div>
     </header>
