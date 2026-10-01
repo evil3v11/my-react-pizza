@@ -1,8 +1,9 @@
+import { useDispatch } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
-import { pizzaApi } from "./api/pizzaApi";
-import { cartSlice } from "./slices/cartSlice";
+import { pizzaApi } from "./api";
+import { cartSlice } from "./slices";
 
 export const store = configureStore({
   reducer: {
@@ -17,4 +18,6 @@ setupListeners(store.dispatch);
 
 export type AppStore = typeof store;
 export type RootState = ReturnType<AppStore["getState"]>;
-export type AppDispatch = AppStore["dispatch"];
+
+type AppDispatch = AppStore["dispatch"];
+export const useAppDispatch = () => useDispatch<AppDispatch>()

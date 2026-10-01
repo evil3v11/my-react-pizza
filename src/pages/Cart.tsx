@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
-import { cartSelector, clearCart } from "../store/slices/cartSlice";
+import { useSelector } from "react-redux";
+import { useAppDispatch, cartSelector, clearCart } from "../store";
 
 import { Trash } from "lucide-react";
 import { Link } from "react-router";
@@ -9,7 +9,7 @@ import CartItem from "../components/Cart/CartItem";
 
 const Cart = () => {
   const { items, totalCount, totalPrice } = useSelector(cartSelector);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   if (!items.length) return <EmptyCartState />;
 

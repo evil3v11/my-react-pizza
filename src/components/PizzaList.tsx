@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router";
-import { useGetPizzasQuery } from "../store/api/pizzaApi";
+import { useGetPizzasQuery } from "../store";
 
-import { PIZZAS_PER_PAGE, TOTAL_PAGES } from "../lib/constants";
+import { PIZZAS_PER_PAGE, TOTAL_PAGES } from "../lib";
 import type { OrderDirection } from "../types";
 
 import PizzaCard from "./PizzaCard/PizzaCard";

@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router";
 import { useClickOutside } from "../../hooks";
-import { PIZZA_SORT_BY_OPTIONS } from "../../lib/constants";
+import { PIZZA_SORT_BY_OPTIONS } from "../../lib";
 
 import ArrowIcon from "../svg/ArrowIcon";
 import type { SortOption } from "../../types";

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { apiUrl } from "../../lib/constants";
+import { apiUrl } from "../../lib";
 
 import type { Pizza } from "../../types";
 import type { GetPizzasQueryOptions } from "../../types";

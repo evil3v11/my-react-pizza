@@ -7,18 +7,18 @@ import { useEffect, useRef, useState } from "react";
 export const useClickOutside = <T extends HTMLElement>() => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const elementRef = useRef<T | null>(null);
+  const ref = useRef<T | null>(null);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (elementRef.current && !elementRef.current.contains(e.target as Node)) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
         setIsOpen(false);
       }
-    }
+    };
 
-    document.addEventListener('click', handleClickOutside)
-    return () => document.removeEventListener('click', handleClickOutside)
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  return { ref: elementRef, isOpen, setIsOpen };
+  return { ref, isOpen, setIsOpen };
 };
