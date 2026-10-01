@@ -1,5 +1,8 @@
 import { useSelector } from "react-redux";
-import { cartSelector } from "../../store/slices/cartSlice";
+import { useLocalStorage } from "../../hooks";
+import { cartSelector } from "../../store";
+
+import type { Cart } from "../../types";
 
 import { Link, useLocation } from "react-router";
 import SearchBar from "./SearchBar";
@@ -7,7 +10,9 @@ import CartIcon from "../svg/CartIcon";
 import logo from "../../assets/img/pizza-logo.svg";
 
 const Header = () => {
-  const { totalPrice, totalCount } = useSelector(cartSelector);
+  const cart = useSelector(cartSelector);
+  useLocalStorage<Cart>("cart", cart);
+
   const pathname = useLocation().pathname;
   const isOnCartPage = pathname === "/cart";
 
@@ -21,14 +26,14 @@ const Header = () => {
             <p>самая вкусная пицца во вселенной</p>
           </div>
         </Link>
-        <SearchBar />
+        {!isOnCartPage && <SearchBar />}
         <div className="header__cart">
           {!isOnCartPage && (
             <Link to="/cart" className="button button--cart">
-              <span>{totalPrice} ₽</span>
+              <span>{cart.totalPrice} ₽</span>
               <div className="button__delimiter" />
               <CartIcon />
-              <span>{totalCount}</span>
+              <span>{cart.totalCount}</span>
             </Link>
           )}
         </div>

@@ -1,20 +1,14 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { getCartItemsFromLocalStorage } from "../../utils";
+
 import type { RootState } from "../store";
-import type { Cart, CartItem } from "../../types";
-
-type ChangeItemActionPayload = Pick<CartItem, "id" | "size" | "type">;
-
-const initialState: Cart = {
-  items: [],
-  totalPrice: 0,
-  totalCount: 0,
-};
+import type { CartItem, ChangeItemActionPayload } from "../../types";
 
 export const cartSlice = createSlice({
   name: "cart",
-  initialState,
+  initialState: getCartItemsFromLocalStorage(),
   reducers: {
-    addOrIncrementItem: (state, action) => {
+    addOrIncrementItem: (state, action: PayloadAction<CartItem>) => {
       const itemInCart = state.items.find(
         (i) =>
           i.id === action.payload.id &&
@@ -69,7 +63,7 @@ export const cartSlice = createSlice({
   },
 });
 
-export const cartSelector = (state: RootState) => state.cart
+export const cartSelector = (state: RootState) => state.cart;
 
 export const {
   addOrIncrementItem,

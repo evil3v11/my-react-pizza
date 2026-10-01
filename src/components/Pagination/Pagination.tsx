@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router";
 
-import { buildVisiblePages } from "../../lib/helpers";
-import { TOTAL_PAGES } from "../../lib/constants";
+import { buildVisiblePages } from "../../utils";
+import { TOTAL_PAGES } from "../../lib";
 
 import styles from "./Pagination.module.scss";
 import {
@@ -45,7 +45,7 @@ const Pagination = () => {
               ...
             </span>
           );
-          
+
         const isActive = page === currentPage;
 
         return (

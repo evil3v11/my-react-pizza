@@ -1,18 +1,19 @@
-import { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { usePizzaOptions } from "../../hooks/usePizzaOptions";
+import { useCallback, useMemo } from "react";
+import { useSelector } from "react-redux";
+import { usePizzaOptions } from "../../hooks";
 import {
+  useAppDispatch,
   addOrIncrementItem,
   calculateTotal,
   cartSelector,
-} from "../../store/slices/cartSlice";
+} from "../../store";
 
-import { PIZZA_TYPES } from "../../lib/constants";
-import type { Pizza as PizzaCardProps } from "../../types";
+import { PIZZA_TYPES } from "../../lib";
+import type { CartItem, Pizza as PizzaCardProps } from "../../types";
 
 import { Link } from "react-router";
-import PlusIcon from "../svg/PlusIcon";
 import PizzaCardSelectors from "../PizzaOptionsSelector";
+import AddToCartButton from "./AddToCartButton";
 
 const PizzaCard = ({
   id,
@@ -26,9 +27,9 @@ const PizzaCard = ({
     usePizzaOptions();
 
   const { items } = useSelector(cartSelector);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const handleAddItemToCart = () => {
+  const handleAddItemToCart = useCallback(() => {
     dispatch(
       addOrIncrementItem({
         id,
@@ -37,10 +38,10 @@ const PizzaCard = ({
         imageUrl,
         size: sizes[activeSizeIdx],
         type: PIZZA_TYPES[activeType],
-      }),
+      } as CartItem),
     );
     dispatch(calculateTotal());
-  };
+  }, [activeSizeIdx, activeType, dispatch, id, imageUrl, price, sizes, title]);
 
   const quantity = useMemo(() => {
     return items
@@ -57,27 +58,20 @@ const PizzaCard = ({
         <img className="pizza-card__image" src={imageUrl} alt={title} />
         <h4 className="pizza-card__title">{title}</h4>
       </Link>
-      <div />
       <PizzaCardSelectors
         types={types}
         sizes={sizes}
         activeType={activeType}
         activeSizeIdx={activeSizeIdx}
-        onTypeChange={handleTypeChange}
-        onSizeIdxChange={handleSizeIdxChange}
+        handleTypeChange={handleTypeChange}
+        handleSizeIdxChange={handleSizeIdxChange}
       />
       <div className="pizza-card__bottom">
         <div className="pizza-card__price">от {price} ₽</div>
-        <button
-          className="button button--outline button--add"
-          onClick={handleAddItemToCart}
-        >
-          <PlusIcon />
-          <span>
-            Добавить
-            {quantity > 0 && <i>{quantity}</i>}
-          </span>
-        </button>
+        <AddToCartButton
+          quantity={quantity}
+          onAddItemToCart={handleAddItemToCart}
+        />
       </div>
     </div>
   );

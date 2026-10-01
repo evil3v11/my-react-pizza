@@ -1,24 +1,19 @@
-import { PIZZA_TYPES } from "../lib/constants";
+import { memo } from "react";
 
-type PizzaOptionsSelectorProps = {
-  types: number[];
-  sizes: number[];
-  activeType: number;
-  activeSizeIdx: number;
-  onTypeChange: (type: number) => void;
-  onSizeIdxChange: (sizeIdx: number) => void;
-};
+import { PIZZA_TYPES } from "../lib";
+import type { PizzaOptionsSelectorProps } from "../types";
 
-const PizzaOptionsSelector = ({
-  types,
-  sizes,
-  activeType,
-  activeSizeIdx,
-  onTypeChange,
-  onSizeIdxChange,
-}: PizzaOptionsSelectorProps) => {
-  return (
+const PizzaOptionsSelector = memo(
+  ({
+    types,
+    sizes,
+    activeType,
+    activeSizeIdx,
+    handleTypeChange,
+    handleSizeIdxChange,
+  }: PizzaOptionsSelectorProps) => (
     <div className="pizza-card__selector" style={{ textAlign: "center" }}>
+      {/* can be exported to a reusable component */}
       <ul>
         <div
           style={{
@@ -27,7 +22,7 @@ const PizzaOptionsSelector = ({
           }}
         />
         {types.map((type) => (
-          <li key={type} onClick={() => onTypeChange(type)}>
+          <li key={type} onClick={() => handleTypeChange(type)}>
             {PIZZA_TYPES[type]}
           </li>
         ))}
@@ -40,13 +35,13 @@ const PizzaOptionsSelector = ({
           }}
         />
         {sizes.map((size, i) => (
-          <li key={size} onClick={() => onSizeIdxChange(i)}>
+          <li key={size} onClick={() => handleSizeIdxChange(i)}>
             {size} см
           </li>
         ))}
       </ul>
     </div>
-  );
-};
+  ),
+);
 
 export default PizzaOptionsSelector;

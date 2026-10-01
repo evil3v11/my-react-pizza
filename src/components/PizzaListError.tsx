@@ -1,4 +1,6 @@
-const PizzaListError = ({ onRefetch }: { onRefetch: () => void }) => (
+import type { PizzaListErrorProps } from "../types";
+
+const PizzaListError = ({ onRefetch }: PizzaListErrorProps) => (
   <div
     style={{
       display: "flex",
@@ -6,7 +8,7 @@ const PizzaListError = ({ onRefetch }: { onRefetch: () => void }) => (
       alignItems: "center",
     }}
   >
-    <span>Произошла ошибка при загрузке пицц.</span>
+    <span>Произошла ошибка при загрузке пицц :(</span>
     <button
       style={{ marginLeft: "8px" }}
       className="button"

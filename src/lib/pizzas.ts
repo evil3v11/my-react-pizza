@@ -1,4 +1,4 @@
-import type { SortOptions } from "../../types";
+import type { SortOptions } from "../types";
 
 export const PIZZA_CATEGORIES = [
   "Все",

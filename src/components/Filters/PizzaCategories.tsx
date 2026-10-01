@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router";
-import { PIZZA_CATEGORIES } from "../../lib/constants/pizzas";
+import { PIZZA_CATEGORIES } from "../../lib";
 
 const PizzaCategories = () => {
   const [searchParams, setSearchParams] = useSearchParams();

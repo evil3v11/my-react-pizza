@@ -1,12 +1,12 @@
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../store";
 import {
   addOrIncrementItem,
   decrementItem,
   deleteItem,
   calculateTotal,
-} from "../../store/slices/cartSlice";
+} from "../../store";
 
-import type { CartItem as CartItemProps } from "../../types";
+import type { CartItemAction, CartItem as CartItemProps } from "../../types";
 
 import PlusIcon from "../svg/PlusIcon";
 import { MinusIcon } from "lucide-react";
@@ -20,20 +20,23 @@ const CartItem = ({
   size,
   type,
 }: CartItemProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const handleItemIncrement = () => {
-    dispatch(addOrIncrementItem({ id, size, type }));
-    dispatch(calculateTotal());
-  };
+  const handleCartItemAction = (action: CartItemAction) => {
+    const cartItem = { id, size, type };
 
-  const handleDecrementItem = () => {
-    dispatch(decrementItem({ id, type, size }));
-    dispatch(calculateTotal());
-  };
+    switch (action) {
+      case "increment":
+        dispatch(addOrIncrementItem(cartItem as CartItemProps));
+        break;
+      case "decrement":
+        dispatch(decrementItem(cartItem));
+        break;
+      case "delete":
+        dispatch(deleteItem(cartItem));
+        break;
+    }
 
-  const handleDeleteItem = () => {
-    dispatch(deleteItem({ id, type, size }));
     dispatch(calculateTotal());
   };
 
@@ -51,14 +54,14 @@ const CartItem = ({
       <div className="cart__item-count">
         <button
           className="button button--outline button--circle cart__item-count-minus"
-          onClick={handleDecrementItem}
+          onClick={() => handleCartItemAction("decrement")}
         >
           <MinusIcon />
         </button>
         <b>{quantity}</b>
         <button
           className="button button--outline button--circle cart__item-count-plus"
-          onClick={handleItemIncrement}
+          onClick={() => handleCartItemAction("increment")}
         >
           <PlusIcon />
         </button>
@@ -69,7 +72,7 @@ const CartItem = ({
       <div className="cart__item-remove">
         <button
           className="button button--outline button--circle"
-          onClick={handleDeleteItem}
+          onClick={() => handleCartItemAction("delete")}
         >
           <PlusIcon />
         </button>

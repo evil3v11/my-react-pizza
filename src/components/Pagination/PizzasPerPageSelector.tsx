@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router";
 import { useClickOutside } from "../../hooks";
-import { PIZZAS_PER_PAGE, PIZZAS_PER_PAGE_OPTIONS } from "../../lib/constants";
+import { PIZZAS_PER_PAGE, PIZZAS_PER_PAGE_OPTIONS } from "../../lib";
 
 import styles from "./PizzasPerPageSelector.module.scss";
 

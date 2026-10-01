@@ -1,10 +1,10 @@
 export type Pizza = {
-  id: number;
+  id: string;
   title: string;
   price: number;
   types: number[];
   sizes: number[];
-  category: number;
+  category: string;
   imageUrl: string;
   rating: number;
 };
